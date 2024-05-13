@@ -11,7 +11,7 @@ Tea Bin Xiong
 
 
 ## Projects
-1) KeyGen - [src/File.Encrypter/File.Encrypter.KeyGen](src/File.Encrypter/File.Encrypter.KeyGen)
+1) KeyGen - [File.Encrypter/File.Encrypter.KeyGen](src/File.Encrypter/File.Encrypter.KeyGen)
 File.Encrypter.KeyGen can be used to generate the Public Key File and Private Key File. 
 
 2) Encrypter -  [File.Encrypter.EncryptTool](src/File.Encrypter/File.Encrypter.EncryptTool)
