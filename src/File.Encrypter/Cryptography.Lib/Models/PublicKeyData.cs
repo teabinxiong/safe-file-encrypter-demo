@@ -8,13 +8,13 @@ namespace Cryptography.Lib.Models
 {
     public sealed class PublicKeyData
     {
-        public string Client { get; private set; }
-        public string KeyXML { get; private set; }
-        public string ExpiryDate { get; private set; }
-        public string Checksum { get; private set; }
-        public string Iv { get; private set; }
+        public string Client { get;  set; }
+        public string KeyXML { get;  set; }
+        public string ExpiryDate { get;  set; }
+        public string Checksum { get;  set; }
+        public string Iv { get;  set; }
 
-        public string Signature { get; private set; }
+        public string Signature { get;  set; }
 
         private PublicKeyData()
         {

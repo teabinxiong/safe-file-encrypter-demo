@@ -121,6 +121,7 @@ namespace Cryptography.Lib.Utils
             // deserialize JSON directly from a file
             using (StreamReader file = File.OpenText(filePath))
             {
+
                 JsonSerializer serializer = new JsonSerializer();
                 p = (T)serializer.Deserialize(file, typeof(T));
             }
