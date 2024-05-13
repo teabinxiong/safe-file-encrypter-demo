@@ -33,14 +33,14 @@ namespace Cryptography.Lib.Models
 
         public static PublicKeyData New(IConfiguration configuration, string client, string password, string privateKeyXML)
         {
-
-            var expiryDate = DateTime.Now.AddMonths(Convert.ToInt32(configuration.GetSection("expiryPeriod").Value)).ToString("yyyy-MM-dd");
+            var expiry = configuration.GetSection("expiryInMonth").Value;
+            var expiryDate = DateTime.Now.AddMonths(Convert.ToInt32(configuration.GetSection("expiryInMonth").Value)).ToString("yyyy-MM-dd");
             var aes = new AesEncryption();
             var iv = aes.GenerateRandomNumber(24);
 
-            var checksum = UtilHelper.Sha256Hash(client + expiryDate + iv + configuration.GetSection("secret").Value);
+            var checksum = UtilHelper.Sha256Hash(client + expiryDate + iv.BytesArrayToString() + configuration.GetSection("secret").Value);
 
-            var signature = UtilHelper.Sha256Hash(client + expiryDate + iv + password +configuration.GetSection("secret").Value);
+            var signature = UtilHelper.Sha256Hash(client + expiryDate + iv.BytesArrayToString() + password +configuration.GetSection("secret").Value);
 
             return new PublicKeyData(
                 client,

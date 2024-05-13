@@ -10,11 +10,13 @@ using System.IO;
 string keyPath = @"D:\work\personal\file-ecrypter\keygen\Private.key";
 string filePath = @"D:\work\personal\file-ecrypter\files\sample-file.txt";
 
+
 var builder = new ConfigurationBuilder()
     .AddJsonFile($"appsettings.json", true, true)
     .AddJsonFile(@"D:\secrets\FileEncrypterDemo\secrets.json", true, true);
 IConfiguration configuration = builder.Build();
 
+var outputDir = configuration.GetSection("encryptedFilePath").Value;
 Console.WriteLine("Starting encyption tool..");
 
 try
@@ -48,7 +50,7 @@ try
     encryptedFile.EncryptedSesssionKey = encryptedSession;
     encryptedFile.EncryptedData = encryptedData;
     encryptedFile.Signature = configuration.GetSection("signature").Value;
-    rsa.PublicKeyData($"{Path.GetFileNameWithoutExtension(filePath)}.enc", encryptedFile);
+    rsa.PublicKeyData($"{outputDir}//{Path.GetFileNameWithoutExtension(filePath)}.enc", encryptedFile);
     Console.WriteLine("Successfully encrypted!");
 }
 catch (Exception ex)

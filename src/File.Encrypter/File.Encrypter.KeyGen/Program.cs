@@ -12,10 +12,13 @@ Console.WriteLine("Starting Key Generation tool..");
 try
 {
     var builder = new ConfigurationBuilder()
-        .AddJsonFile($"appsettings.json", true, true)
+        .AddJsonFile($"appsettings.json", false, true)
         .AddJsonFile(@"D:\secrets\FileEncrypterDemo\secrets.json", true, true);
 
     IConfiguration configuration = builder.Build();
+
+    var outputDir = configuration.GetSection("keyGenPath").Value;
+
 
     Console.WriteLine("Please enter client name:");
     client = Console.ReadLine();
@@ -25,7 +28,7 @@ try
     Console.WriteLine();
 
     var rsa = new RsaWithXMLKey();
-    rsa.GenerateNewKey(".\\public.xml", ".\\private.xml");
+    rsa.GenerateNewKey($"{outputDir}\\public.xml", $"{outputDir}\\private.xml");
 
     var privateKeyData = PrivateKeyData.New(
        configuration,
@@ -33,7 +36,7 @@ try
        rsa.privateKeyXML
        ) ;
 
-    rsa.OutputPrivateFile(".\\Private.key", privateKeyData);
+    rsa.OutputPrivateFile($"{outputDir}\\Private.key", privateKeyData);
 
     var publicKeyData =  PublicKeyData.New(
         configuration,
@@ -42,7 +45,7 @@ try
         rsa.publicKeyXML
         );
 
-    rsa.OutputPublicFile(".\\Public.key", publicKeyData);
+    rsa.OutputPublicFile($"{outputDir}\\Public.key", publicKeyData);
 
     Console.WriteLine("Key file generated");
 

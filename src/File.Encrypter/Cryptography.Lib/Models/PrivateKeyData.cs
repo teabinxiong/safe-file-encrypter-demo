@@ -28,7 +28,7 @@ namespace Cryptography.Lib.Models
 
         public static PrivateKeyData New(IConfiguration configuration, string? client, string privateKeyXML)
         {
-            var expiryDate = DateTime.Now.AddMonths(Convert.ToInt32(configuration.GetSection("expiryPeriod").Value)).ToString("yyyy-MM-dd");
+            var expiryDate = DateTime.Now.AddMonths(Convert.ToInt32(configuration.GetSection("expiryInMonth").Value)).ToString("yyyy-MM-dd");
             var aes = new AesEncryption();
             var iv = aes.GenerateRandomNumber(24);
             return new PrivateKeyData(
