@@ -7,8 +7,7 @@ using System.Text.Json;
 using System.Text;
 using Cryptography.Lib.Extensions;
 
-string keyPath = @"D:\work\personal\file-ecrypter\keygen\Public.key";
-string filePath = @"D:\work\personal\file-ecrypter\encryptedfiles\sample-file.enc";
+
 
 
 var builder = new ConfigurationBuilder()
@@ -19,8 +18,17 @@ IConfiguration configuration = builder.Build();
 Console.WriteLine("Starting decryption tool..");
 var outputDir = configuration.GetSection("EncryptedFilePath").Value;
 
+var keyGenDir = configuration.GetSection("keyGenPath").Value;
 
-try { 
+string keyPath = keyGenDir + @"\Public.key";
+
+string? filePath = string.Empty;
+Console.WriteLine("Please enter the path to the file you wish to decrypt.");
+filePath = Console.ReadLine();
+Console.WriteLine();
+
+try
+{ 
     var rsa = new RsaWithXMLKey();
     PublicKeyData publicKeyData = rsa.EncryptedFileReadFromFile<PublicKeyData>(keyPath);
     var vendor = publicKeyData.Client;

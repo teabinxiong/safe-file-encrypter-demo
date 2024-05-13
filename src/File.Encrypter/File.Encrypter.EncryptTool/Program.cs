@@ -7,8 +7,7 @@ using System.Text.Json;
 using System.Text;
 using System.IO;
 
-string keyPath = @"D:\work\personal\file-ecrypter\keygen\Private.key";
-string filePath = @"D:\work\personal\file-ecrypter\files\sample-file.txt";
+
 
 
 var builder = new ConfigurationBuilder()
@@ -17,6 +16,14 @@ var builder = new ConfigurationBuilder()
 IConfiguration configuration = builder.Build();
 
 var outputDir = configuration.GetSection("encryptedFilePath").Value;
+var keyGenDir = configuration.GetSection("keyGenPath").Value;
+
+string? filePath = string.Empty;
+Console.WriteLine("Please enter the path to the file you wish to encrypt.");
+filePath = Console.ReadLine();
+Console.WriteLine();
+
+string keyPath = keyGenDir + @"\Private.key";
 Console.WriteLine("Starting encyption tool..");
 
 try
